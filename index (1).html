@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="前世から運命のズレを視抜き、書き換える女。数秘を用いた前世鑑定・魂の石診断。音信不通・複雑愛・復縁・繰り返す恋のカルマを読み解きます。">
+<meta property="og:title" content="前世と魂の石 無料診断｜Lilith Destiny">
+<meta property="og:description" content="あなたが選ばれない理由、もう視えてる。数秘で前世・魂の石・運命のズレを読み解く無料診断。">
+<meta property="og:type" content="website">
+<title>前世と魂の石 無料診断｜Lilith Destiny</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: rgba(180,120,90,1);
+    --gold-dim: rgba(180,120,90,0.6);
+    --gold-faint: rgba(180,120,90,0.25);
+    --rose: rgba(140,50,80,1);
+    --text-primary: #f0e8dc;
+    --text-secondary: rgba(220,195,170,0.85);
+    --text-muted: rgba(200,165,140,0.7);
+    --text-dim: rgba(180,140,110,0.45);
+    --bg: #0a0608;
+    --surface: rgba(255,255,255,0.03);
+    --line-green: rgba(0,185,0,0.15);
+    --line-green-border: rgba(0,200,0,0.4);
+    --line-green-text: #c8f0c8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(120,40,80,0.35) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 15% 85%, rgba(60,20,50,0.3) 0%, transparent 50%),
+      radial-gradient(ellipse 40% 40% at 85% 70%, rgba(40,10,60,0.25) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(220,180,140,0.5);
+    animation: floatUp linear infinite;
+  }
+
+  @keyframes floatUp {
+    0%   { transform: translateY(105vh) translateX(0px); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 0.4; }
+    100% { transform: translateY(-80px) translateX(30px); opacity: 0; }
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    padding: 64px 0 40px;
+  }
+
+  .eye-mark {
+    width: 64px;
+    height: 38px;
+    margin: 0 auto 28px;
+  }
+
+  .eye-mark svg { width: 100%; height: 100%; }
+
+  .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.4em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+  }
+
+  .sub-headline {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    line-height: 1.9;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 32px 0;
+  }
+  .divider-line { flex: 1; height: 0.5px; background: var(--gold-faint); }
+  .divider-sym {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: var(--gold-dim);
+  }
+
+  /* ── Steps ── */
+  .step { display: none; }
+  .step.active {
+    display: block;
+    animation: fadeSlide 0.55s ease;
+  }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Section label ── */
+  .sec-label {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec-label::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--gold-faint);
+  }
+
+  /* ── Badge ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(180,50,50,0.12);
+    border: 0.5px solid rgba(200,80,80,0.28);
+    color: rgba(235,160,150,0.85);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+
+  /* ── LINE Gate ── */
+  .line-gate {
+    background: var(--surface);
+    border: 0.5px solid var(--gold-faint);
+    border-radius: 2px;
+    padding: 28px 22px;
+    margin-bottom: 20px;
+  }
+
+  .line-gate-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    line-height: 1.55;
+  }
+
+  .line-gate-sub {
+    font-size: 12px;
+    line-height: 2;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    letter-spacing: 0.05em;
+  }
+
+  .benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+  }
+
+  .benefit-dot {
+    width: 4px;
+    height: 4px;
+    background: rgba(180,90,70,0.75);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 8px;
+  }
+
+  /* ── Buttons ── */
+  .btn-line {
+    width: 100%;
+    background: var(--line-green);
+    border: 0.5px solid var(--line-green-border);
+    color: var(--line-green-text);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    padding: 18px;
+    cursor: pointer;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.35s, border-color 0.35s;
+    text-decoration: none;
+  }
+  .btn-line:hover {
+    background: rgba(0,185,0,0.25);
+    border-color: rgba(0,220,0,0.55);
+  }
+  .btn-line-ico { width: 20px; height: 20px; flex-shrink: 0; }
+  .btn-line-ico svg { width: 100%; height: 100%; }
+
+  .note {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    text-align: center;
+    margin-top: 14px;
+    line-height: 1.9;
+  }
+
+  .btn-ghost {
+    width: 100%;
+    background: transparent;
+    border: 0.5px solid var(--gold-dim);
+    color: var(--text-primary);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    padding: 18px;
+    cursor: pointer;
+    border-radius: 2px;
+    margin-top: 10px;
+    transition: border-color 0.35s, background 0.35s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-ghost::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(130,50,70,0.28);
+    opacity: 0;
+    transition: opacity 0.35s;
+  }
+  .btn-ghost:hover::after { opacity: 1; }
+  .btn-ghost:hover { border-color: rgba(210,140,110,0.9); }
+  .btn-ghost span { position: relative; z-index: 1; }
+
+  /* ── Form ── */
+  .field { margin-bottom: 24px; }
+
+  .field label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: rgba(220,190,160,0.85);
+    margin-bottom: 10px;
+  }
+
+  .field input {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid var(--gold-faint);
+    color: var(--text-primary);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 15px;
+    font-weight: 300;
+    padding: 14px 16px;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.3s, background 0.3s;
+    -webkit-appearance: none;
+  }
+  .field input:focus {
+    border-color: var(--gold-dim);
+    background: rgba(255,255,255,0.06);
+  }
+  .field input::placeholder {
+    color: rgba(180,150,130,0.28);
+    font-size: 13px;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.55) sepia(0.4) saturate(0.4);
+    opacity: 0.5;
+    cursor: pointer;
+  }
+
+  /* ── Loading ── */
+  .loading-wrap {
+    text-align: center;
+    padding: 72px 0;
+  }
+
+  .sigil {
+    width: 86px;
+    height: 86px;
+    margin: 0 auto 36px;
+    animation: spin 9s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .loading-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-style: italic;
+    color: rgba(200,160,130,0.8);
+    letter-spacing: 0.06em;
+  }
+
+  .dots::after {
+    content: '';
+    animation: dotanim 2.2s steps(4, end) infinite;
+  }
+  @keyframes dotanim {
+    0%  { content: ''; }
+    25% { content: '・'; }
+    50% { content: '・・'; }
+    75% { content: '・・・'; }
+  }
+
+  /* ── Result blocks ── */
+  .result-card {
+    border: 0.5px solid rgba(180,120,90,0.22);
+    padding: 28px 22px;
+    margin-bottom: 16px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.018);
+    position: relative;
+  }
+  .result-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 44px; height: 0.5px;
+    background: var(--gold-dim);
+  }
+
+  .big-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 60px;
+    font-weight: 300;
+    color: rgba(180,120,90,0.82);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .num-label {
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    color: rgba(180,120,90,0.5);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .result-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 23px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    line-height: 1.45;
+  }
+
+  .keyword-tag {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: rgba(180,120,90,0.58);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .result-body {
+    font-size: 13px;
+    line-height: 2.1;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+  }
+
+  .past-life-card {
+    background: rgba(120,35,75,0.09);
+    border: 0.5px solid rgba(145,55,90,0.32);
+    padding: 24px 22px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  .era-tag {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: rgba(185,100,125,0.72);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .past-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    font-style: italic;
+    color: #f2e2da;
+    margin-bottom: 10px;
+    line-height: 1.45;
+  }
+
+  .past-body {
+    font-size: 12px;
+    line-height: 2.1;
+    color: rgba(225,185,170,0.82);
+  }
+
+  .stone-card {
+    background: rgba(38,18,50,0.42);
+    border: 0.5px solid rgba(140,85,165,0.32);
+    padding: 24px 22px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .gem-wrap { width: 58px; height: 58px; flex-shrink: 0; }
+  .gem-wrap svg { width: 100%; height: 100%; }
+
+  .stone-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    font-style: italic;
+    color: #ead8f2;
+    margin-bottom: 6px;
+  }
+
+  .stone-prop {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: rgba(160,115,185,0.72);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .stone-desc {
+    font-size: 12px;
+    line-height: 2.1;
+    color: rgba(212,185,228,0.82);
+  }
+
+  .shift-card {
+    border: 0.5px solid rgba(200,135,100,0.42);
+    background: rgba(80,18,40,0.16);
+    padding: 28px 22px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  .shift-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: #f5e2cc;
+    margin-bottom: 16px;
+    line-height: 1.55;
+  }
+
+  .shift-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .shift-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12px;
+    line-height: 1.9;
+    color: rgba(232,198,168,0.88);
+  }
+
+  .shift-list li::before {
+    content: '―';
+    color: rgba(180,95,75,0.62);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── Next Step CTA ── */
+  .next-step {
+    border: 0.5px solid rgba(180,115,90,0.38);
+    background: rgba(100,28,50,0.18);
+    padding: 34px 22px;
+    border-radius: 2px;
+    margin-top: 28px;
+    text-align: center;
+  }
+
+  .next-tag {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    color: rgba(205,128,100,0.72);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .next-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    line-height: 1.55;
+  }
+
+  .next-body {
+    font-size: 12px;
+    line-height: 2.1;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    letter-spacing: 0.05em;
+  }
+
+  .btn-cta {
+    display: block;
+    width: 100%;
+    background: rgba(0,185,0,0.12);
+    border: 0.5px solid rgba(0,200,0,0.38);
+    color: var(--line-green-text);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    padding: 18px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.35s, border-color 0.35s;
+    text-decoration: none;
+    text-align: center;
+  }
+  .btn-cta:hover {
+    background: rgba(0,185,0,0.24);
+    border-color: rgba(0,220,0,0.55);
+  }
+
+  .btn-reset {
+    display: block;
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    padding: 10px;
+    cursor: pointer;
+    margin: 16px auto 0;
+    transition: color 0.3s;
+  }
+  .btn-reset:hover { color: rgba(180,140,110,0.75); }
+
+  /* ── Mobile optimization ── */
+  @media (max-width: 400px) {
+    .headline { font-size: 26px; }
+    .big-num  { font-size: 50px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eye-mark">
+      <svg viewBox="0 0 64 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="32" cy="19" rx="30" ry="17" stroke="rgba(180,120,90,0.5)" stroke-width="0.5"/>
+        <circle cx="32" cy="19" r="9" stroke="rgba(180,120,90,0.62)" stroke-width="0.5"/>
+        <circle cx="32" cy="19" r="4.5" fill="rgba(140,55,80,0.75)"/>
+        <line x1="2" y1="19" x2="62" y2="19" stroke="rgba(180,120,90,0.22)" stroke-width="0.5"/>
+        <circle cx="32" cy="19" r="1.6" fill="rgba(222,182,142,0.92)"/>
+      </svg>
+    </div>
+    <div class="brand-name">Lilith &middot; Destiny</div>
+    <div class="headline">前世から運命のズレを<br>視抜き、書き換える女</div>
+    <div class="sub-headline">音信不通 / 複雑愛 / 復縁 / 繰り返す恋<br>あなたが選ばれない理由、もう視えてる。</div>
+  </div>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-sym">✦</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- Step 1: LINE Gate -->
+  <div class="step active" id="step-line">
+    <div class="sec-label">前世と魂の石 &middot; 無料診断</div>
+    <div class="badge">✦ 人数限定・無料鑑定</div>
+
+    <div class="line-gate">
+      <div class="line-gate-title">診断を受け取る前に、<br>LINEを登録してください。</div>
+      <div class="line-gate-sub">
+        登録後、すぐに診断ページへ進めます。<br>
+        あなたの前世・魂の石・運命のズレを<br>
+        数秘で読み解きます。
+      </div>
+      <div class="benefits">
+        <div class="benefit"><div class="benefit-dot"></div>前世の記憶と今世のカルマを数秘で解読</div>
+        <div class="benefit"><div class="benefit-dot"></div>魂の石診断（あなただけの石が決まります）</div>
+        <div class="benefit"><div class="benefit-dot"></div>運命のズレと書き換えポイント3つ</div>
+        <div class="benefit"><div class="benefit-dot"></div>個別鑑定のご案内（LINEにてお知らせ）</div>
+      </div>
+
+      <a class="btn-line" href="https://lin.ee/oYB9QfZ" target="_blank" rel="noopener">
+        <div class="btn-line-ico">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.03 2 11c0 3.13 1.73 5.88 4.36 7.56L5.5 22l4.18-2.1c.75.2 1.53.1 2.32.1 5.52 0 10-4.03 10-9S17.52 2 12 2z" fill="rgba(0,200,0,0.75)"/>
+            <path d="M8 10.5h8M8 13.5h5" stroke="rgba(0,30,0,0.6)" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        LINE登録して診断を受け取る
+      </a>
+      <div class="note">登録後、下のボタンから診断に進めます</div>
+    </div>
+
+    <button class="btn-ghost" onclick="goToInput()">
+      <span>登録済み &middot; 診断へ進む →</span>
+    </button>
+  </div>
+
+  <!-- Step 2: Input -->
+  <div class="step" id="step-input">
+    <div class="sec-label">情報を入力する &middot; Reading</div>
+
+    <div class="field">
+      <label for="birthdate">あなたの生年月日</label>
+      <input type="date" id="birthdate" max="2007-12-31">
+    </div>
+
+    <div class="field">
+      <label for="fullname">フルネーム（旧姓でも可）</label>
+      <input type="text" id="fullname" placeholder="例：山田 花子" autocomplete="off">
+    </div>
+
+    <button class="btn-ghost" onclick="startReading()">
+      <span>✦ 前世と魂の石を視る</span>
+    </button>
+  </div>
+
+  <!-- Step 3: Loading -->
+  <div class="step" id="step-loading">
+    <div class="loading-wrap">
+      <div class="sigil">
+        <svg viewBox="0 0 86 86" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="43" cy="43" r="39" stroke="rgba(180,120,90,0.28)" stroke-width="0.5" stroke-dasharray="5 5"/>
+          <circle cx="43" cy="43" r="28" stroke="rgba(145,65,100,0.42)" stroke-width="0.5"/>
+          <polygon points="43,8 76,61 10,61" fill="none" stroke="rgba(180,120,90,0.35)" stroke-width="0.5"/>
+          <polygon points="43,78 10,25 76,25" fill="none" stroke="rgba(145,65,100,0.3)" stroke-width="0.5"/>
+          <circle cx="43" cy="43" r="5" fill="rgba(160,75,90,0.65)"/>
+          <circle cx="43" cy="43" r="1.8" fill="rgba(222,182,142,0.92)"/>
+        </svg>
+      </div>
+      <div class="loading-text">魂の記録を解読中<span class="dots"></span></div>
+    </div>
+  </div>
+
+  <!-- Step 4: Result -->
+  <div class="step" id="step-result">
+    <div id="result-content"></div>
+
+    <div class="next-step">
+      <div class="next-tag">✦ Next Step &middot; 個別鑑定</div>
+      <div class="next-title">この縁、まだ終わってない。<br>続きはLINEで視せます。</div>
+      <div class="next-body">
+        診断では触れられなかった<br>
+        「その人との縁の本質」と「書き換えの具体的な一手」を<br>
+        個別鑑定でお伝えします。<br><br>
+        ご希望の方はLINEよりご連絡ください。
+      </div>
+      <a class="btn-cta" href="https://lin.ee/oYB9QfZ" target="_blank" rel="noopener">
+        LINEで個別鑑定を申し込む →
+      </a>
+    </div>
+
+    <button class="btn-reset" onclick="resetAll()">もう一度診断する</button>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+(function () {
+  'use strict';
+
+  var LINE_URL = 'https://lin.ee/oYB9QfZ';
+
+  /* ── Data ── */
+  var BIRTH = {
+    1:  { title:'孤高の先駆者',           kw:'支配と孤独の間で揺れる魂',   body:'あなたの魂は「先頭に立つ者」の使命を持って生まれました。しかし前世では、その強さゆえに愛する人を置いて進み続け、深い孤独と後悔を刻みました。今世でも同じパターンが繰り返されています。' },
+    2:  { title:'捧げすぎた愛の記憶',     kw:'境界線を失った魂',           body:'前世のあなたは「与え続けることが愛」だと信じていました。その記憶が今世に持ち越され、あなたは無意識に相手に尽くし、選ばれることを待ち続けています。' },
+    3:  { title:'語れなかった言葉',       kw:'表現と沈黙の魂',             body:'前世で、あなたには言いたいことがたくさんありました。しかしその言葉は封じられ、伝えられないまま終わりました。今世での「伝わらない」感覚の根はここにあります。' },
+    4:  { title:'崩れゆく砦を守った者',   kw:'執着と責任の魂',             body:'前世のあなたは、守るべきものを最後まで手放せませんでした。その「手放せない」記憶が今世の執着として現れ、縁が切れるべき時にも切れない縁を作り続けています。' },
+    5:  { title:'自由を求めて逃げ続けた魂', kw:'漂流と渇望の記憶',         body:'前世のあなたは、どこにいても「ここではない」という感覚と共に生きていました。その自由への渇望が今世では「定まらない縁」「消えていく人」として現れています。' },
+    6:  { title:'美と完璧に縛られた聖女', kw:'理想と犠牲の魂',             body:'前世のあなたは、誰かのために美しくあり続けることを求められました。その「完璧でないと愛されない」という刷り込みが、今世での恋愛の苦しさの核心にあります。' },
+    7:  { title:'真実を見すぎた孤独者',   kw:'洞察と疎外の魂',             body:'前世のあなたは、人の本質を見通す力を持っていました。しかしその力ゆえに孤立し、愛から遠ざかりました。今世でも「深く見えすぎる」あなたは、普通の愛し方がわからなくなっています。' },
+    8:  { title:'力と愛の間で引き裂かれた者', kw:'支配と服従の魂',         body:'前世のあなたは権力の中心にいました。愛か力か、常に選択を迫られ、愛を犠牲にした記憶があります。今世での「選ばれない」感覚の根は、あなた自身が愛を後回しにしてきたことへの魂の記憶です。' },
+    9:  { title:'すべてを知る最後の魂',   kw:'完成と手放しの記憶',         body:'あなたの魂は多くの転生を経て、この9という完成数に至りました。前世では、すべてを悟りながら、最後に手放すことができなかった何かがあります。その未完の想いが今世の縁のカルマを作っています。' },
+    11: { title:'光の預言者',             kw:'使命と孤独の魂',             body:'マスターナンバー11。あなたの魂は次元が違います。前世では霊的指導者として多くの人を導きながら、自分自身の愛を生きることができませんでした。その記憶が今世の「特別なのに選ばれない」感覚の正体です。' },
+    22: { title:'世界を建てた建築家',     kw:'理想と現実の魂',             body:'マスターナンバー22。壮大なビジョンと共に生まれた魂。前世では大きなものを作り上げながら、最も近くにいる人との小さな愛を見失いました。今世での「近くにいるのに遠い」という縁の感覚はここから来ています。' },
+    33: { title:'愛の化身',               kw:'無条件の愛と自己犠牲の魂',   body:'マスターナンバー33。あなたは愛そのものです。しかしその純粋さゆえに、前世では自分を犠牲にし続けました。今世でも同じパターンが続いているなら、それは魂が「自分を愛すること」を学ぶためのカルマです。' }
+  };
+
+  var DESTINY = {
+    1: { stone:'ガーネット',         c1:'#8B1A1A', c2:'#C43030', desc:'情熱と決断の石。前世の孤独な戦士が残した傷を癒やし、愛の中で強さを持つことを教えます。' },
+    2: { stone:'ムーンストーン',     c1:'#6A6A8A', c2:'#9A9ACA', desc:'感受性と絆の石。境界線を学ぶあなたの魂を包み、相手への依存ではなく自立した愛へと導きます。' },
+    3: { stone:'シトリン',           c1:'#8B6914', c2:'#C49A28', desc:'表現と創造の石。封じられた言葉を解放し、あなたの想いが正しく相手に届くよう縁を動かします。' },
+    4: { stone:'ブラックトルマリン', c1:'#2A2A4E', c2:'#5A5A8E', desc:'保護と解放の石。手放せない執着のエネルギーを浄化し、健全な縁の切り方と結び方を魂に教えます。' },
+    5: { stone:'アクアマリン',       c1:'#1A5A6E', c2:'#2A8AA0', desc:'自由と方向性の石。漂い続ける魂に「ここで愛せる」という安心感を与え、定まる縁を引き寄せます。' },
+    6: { stone:'ローズクォーツ',     c1:'#8B3A5A', c2:'#C46080', desc:'自己愛の石。完璧を求める前世の記憶を溶かし、「今のあなた」が愛されることを許可する力を持ちます。' },
+    7: { stone:'アメジスト',         c1:'#5A2A7A', c2:'#8A4AAA', desc:'洞察と統合の石。見えすぎる力を才能に変え、深い知性と感情を持つあなたに相応しい魂との縁を繋ぎます。' },
+    8: { stone:'オブシディアン',     c1:'#2A1A1A', c2:'#6A4A4A', desc:'真実と変容の石。力と愛を統合し、強さの中に愛を持つことを学んだ魂だけが扱える変容の石です。' },
+    9: { stone:'ラピスラズリ',       c1:'#1A2A6E', c2:'#2A4AAA', desc:'叡智と完成の石。多くの転生の記憶を整理し、今世での手放しと新しい縁の始まりをサポートします。' }
+  };
+
+  var PAST_LIVES = [
+    { era:'中世ヨーロッパ · 13世紀',    title:'修道院の聖女',             body:'あなたの魂は、神に仕える者として清廉に生きました。愛することを禁じられた記憶が、今世での「愛してはいけない」という無意識の制限として残っています。' },
+    { era:'古代エジプト · 紀元前',       title:'王の側に仕えた神官',       body:'権力の中枢にいながら、あなたは誰も知らない孤独を生きました。今世の「いつも一人」という感覚の根はここにあります。' },
+    { era:'江戸時代 · 日本',             title:'誰かを待ち続けた女',       body:'帰らない人を待ち、その縁が果たされることなく終わりました。今世での音信不通のカルマはこの前世が起点です。' },
+    { era:'ビクトリア朝 · イギリス',     title:'愛を言葉にできなかった貴婦人', body:'身分と感情の間で引き裂かれ、本当に愛した人に伝えられないまま別れました。「伝わらない」縁のパターンはここから来ています。' },
+    { era:'古代ギリシャ · 紀元前',       title:'予言の巫女',               body:'真実を語るが、信じてもらえない運命を生きました。あなたの直感は正確なのに、相手には届かない。その原因はこの前世にあります。' }
+  ];
+
+  var SHIFTS = {
+    1:  ['一人で抱えることが「強さ」だという前世の記憶を手放す', '愛されることへの警戒を解き、受け取る練習をする', '先頭に立ちながら、隣に人を置くことを許可する'],
+    2:  ['相手に尽くすことで価値を証明しようとするパターン', '「NO」と言えない魂の記憶から自分を解放する', '選ばれることを待つのではなく、自分が選ぶ側に立つ'],
+    3:  ['伝えたいことを飲み込む前世の習慣を断ち切る', '笑顔の裏に隠した本音を、少しずつ言語化する', '「伝わらない」を諦めるのではなく、伝え方を変える'],
+    4:  ['手放せない執着が縁をブロックしていることに気づく', '「守らなければ」という強迫から愛を切り離す', '終わりを受け入れることが、新しい縁への扉になる'],
+    5:  ['「ここではない」という感覚に乗り続けることをやめる', '不安定さを魅力にしてきたパターンを手放す', '一つの縁に「留まる勇気」を持つことが今世の課題'],
+    6:  ['完璧なあなたでないと愛されないという刷り込みを解く', '弱さを見せることが、本物の縁を引き寄せる鍵', '他者の期待に応え続ける前世のパターンを今世で終わらせる'],
+    7:  ['見えすぎることで距離を置いてきた孤独のパターン', '分析より感覚を、観察より体験を選ぶ瞬間を作る', '信じることの脆弱さを、今世では強さとして扱う'],
+    8:  ['力を持つほど愛から遠ざかるという誤った記憶', '与える側ではなく、受け取る側の体験をする', 'コントロールを手放すことが縁の書き換えの始まり'],
+    9:  ['すべてを悟ったふりで感情を切り離すパターン', '終わりを急がず、今この縁の中に留まる練習', '手放すことと諦めることの違いを魂で学ぶ'],
+    11: ['使命と個人の愛の間で引き裂かれるパターン', '光を与え続けながら、自分も満たされることを許可する', '特別であることへの孤独感を、今世では解消する'],
+    22: ['大きなものを作ろうとして、目の前の縁を見失うパターン', '理想の愛を探すより、今ここにある愛を育てる', '現実と理想の橋渡しを、愛においても実践する'],
+    33: ['愛することと、自分を失うことを混同するパターン', '無条件の愛は、まず自分自身に向けることから始まる', '他者を救おうとする前に、あなた自身の傷を見る']
+  };
+
+  /* ── Numerology ── */
+  function calcBirth(str) {
+    var digits = str.replace(/-/g, '').split('').map(Number);
+    var n = digits.reduce(function(a, b) { return a + b; }, 0);
+    while (n > 9 && n !== 11 && n !== 22 && n !== 33) {
+      n = String(n).split('').map(Number).reduce(function(a, b) { return a + b; }, 0);
+    }
+    return n;
+  }
+
+  function calcDestiny(name) {
+    var am = { A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,I:9,J:1,K:2,L:3,M:4,N:5,O:6,P:7,Q:8,R:9,S:1,T:2,U:3,V:4,W:5,X:6,Y:7,Z:8 };
+    var jm = { 'あ':1,'い':1,'う':6,'え':5,'お':6,'か':2,'き':1,'く':2,'け':5,'こ':6,'さ':3,'し':3,'す':3,'せ':3,'そ':3,'た':4,'ち':4,'つ':4,'て':4,'と':4,'な':5,'に':5,'ぬ':5,'ね':5,'の':5,'は':8,'ひ':1,'ふ':8,'へ':5,'ほ':8,'ま':4,'み':4,'む':3,'め':5,'も':4,'や':1,'ゆ':3,'よ':6,'ら':2,'り':2,'る':2,'れ':2,'ろ':2,'わ':6,'ん':5,'ア':1,'イ':1,'ウ':6,'エ':5,'オ':6,'カ':2,'キ':1,'ク':2,'ケ':5,'コ':6,'サ':3,'シ':3,'ス':3,'セ':3,'ソ':3,'タ':4,'チ':4,'ツ':4,'テ':4,'ト':4,'ナ':5,'ニ':5,'ヌ':5,'ネ':5,'ノ':5,'ハ':8,'ヒ':1,'フ':8,'ヘ':5,'ホ':8,'マ':4,'ミ':4,'ム':3,'メ':5,'モ':4,'ヤ':1,'ユ':3,'ヨ':6,'ラ':2,'リ':2,'ル':2,'レ':2,'ロ':2,'ワ':6,'ン':5 };
+    var total = 0;
+    var up = name.toUpperCase();
+    for (var i = 0; i < up.length; i++) {
+      var c = up[i];
+      if (am[c])       total += am[c];
+      else if (jm[c])  total += jm[c];
+    }
+    if (total === 0) total = ((name.length * 7) % 9) + 1;
+    while (total > 9 && total !== 11 && total !== 22 && total !== 33) {
+      total = String(total).split('').map(Number).reduce(function(a,b){return a+b;}, 0);
+    }
+    return total;
+  }
+
+  /* ── SVG gem ── */
+  function gemSVG(c1, c2) {
+    return '<svg viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<polygon points="29,4 53,19 53,39 29,54 5,39 5,19" fill="' + c1 + '" fill-opacity="0.72" stroke="' + c2 + '" stroke-width="0.5"/>'
+      + '<polygon points="29,4 53,19 29,29" fill="' + c2 + '" fill-opacity="0.22"/>'
+      + '<polygon points="29,4 5,19 29,29"  fill="' + c1 + '" fill-opacity="0.42"/>'
+      + '<polygon points="29,54 53,39 29,29" fill="' + c1 + '" fill-opacity="0.32"/>'
+      + '<polygon points="29,54 5,39 29,29"  fill="' + c2 + '" fill-opacity="0.16"/>'
+      + '<polygon points="29,4 53,19 53,39 29,54 5,39 5,19" fill="none" stroke="' + c2 + '" stroke-width="0.5" stroke-opacity="0.65"/>'
+      + '</svg>';
+  }
+
+  /* ── Navigation ── */
+  function showStep(id) {
+    var steps = document.querySelectorAll('.step');
+    for (var i = 0; i < steps.length; i++) steps[i].classList.remove('active');
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  window.goToInput = function() { showStep('step-input'); };
+
+  window.startReading = function() {
+    var bd = document.getElementById('birthdate').value;
+    var fn = document.getElementById('fullname').value.trim();
+    if (!bd || !fn) { alert('生年月日とフルネームをご入力ください。'); return; }
+
+    showStep('step-loading');
+
+    setTimeout(function() {
+      var bn  = calcBirth(bd);
+      var dn  = calcDestiny(fn);
+      var dnB = dn > 9 ? (dn % 9 || 9) : dn;
+      var bm  = BIRTH[bn]  || BIRTH[9];
+      var dm  = DESTINY[dnB] || DESTINY[1];
+      var pl  = PAST_LIVES[(bn + dn) % PAST_LIVES.length];
+      var sh  = SHIFTS[bn] || SHIFTS[9];
+
+      var html =
+        '<div class="sec-label">誕生数 ' + bn + ' &middot; 魂の使命</div>'
+        + '<div class="result-card">'
+        +   '<div class="big-num">' + bn + '</div>'
+        +   '<div class="num-label">誕生数 &middot; Life Path</div>'
+        +   '<div class="result-title">' + bm.title + '</div>'
+        +   '<div class="keyword-tag">' + bm.kw + '</div>'
+        +   '<div class="result-body">' + bm.body + '</div>'
+        + '</div>'
+
+        + '<div class="sec-label" style="margin-top:24px">前世の記憶 &middot; Past Life</div>'
+        + '<div class="past-life-card">'
+        +   '<div class="era-tag">✦ ' + pl.era + '</div>'
+        +   '<div class="past-title">' + pl.title + '</div>'
+        +   '<div class="past-body">' + pl.body + '</div>'
+        + '</div>'
+
+        + '<div class="sec-label" style="margin-top:24px">魂の石 &middot; Soul Stone</div>'
+        + '<div class="stone-card">'
+        +   '<div class="gem-wrap">' + gemSVG(dm.c1, dm.c2) + '</div>'
+        +   '<div>'
+        +     '<div class="stone-name">' + dm.stone + '</div>'
+        +     '<div class="stone-prop">運命数 ' + dn + ' &middot; Soul Stone</div>'
+        +     '<div class="stone-desc">' + dm.desc + '</div>'
+        +   '</div>'
+        + '</div>'
+
+        + '<div class="sec-label" style="margin-top:24px">運命のズレと書き換え &middot; Shift</div>'
+        + '<div class="shift-card">'
+        +   '<div class="shift-title">今世で書き換えるべき<br>カルマのパターン</div>'
+        +   '<ul class="shift-list">'
+        +     sh.map(function(s) { return '<li>' + s + '</li>'; }).join('')
+        +   '</ul>'
+        + '</div>';
+
+      document.getElementById('result-content').innerHTML = html;
+      showStep('step-result');
+    }, 3200);
+  };
+
+  window.resetAll = function() {
+    document.getElementById('birthdate').value = '';
+    document.getElementById('fullname').value  = '';
+    showStep('step-line');
+  };
+
+  /* ── Particles ── */
+  (function spawnParticles() {
+    var container = document.getElementById('particles');
+    for (var i = 0; i < 30; i++) {
+      var p = document.createElement('div');
+      p.className = 'particle';
+      var size = Math.random() * 2 + 0.5;
+      p.style.cssText = [
+        'left:'              + (Math.random() * 100) + '%',
+        'width:'             + size + 'px',
+        'height:'            + size + 'px',
+        'animation-duration:'+ (Math.random() * 22 + 14) + 's',
+        'animation-delay:'   + (Math.random() * 22) + 's',
+        'opacity:'           + (Math.random() * 0.5 + 0.15)
+      ].join(';');
+      container.appendChild(p);
+    }
+  })();
+
+})();
+</script>
+</body>
+</html>
